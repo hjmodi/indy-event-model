@@ -36,7 +36,6 @@
     <quarkus.version>1.9.2.Final</quarkus.version>
   </properties>
 
-
   <scm>
     <connection>scm:git:https://github.com/CommonJava/indy-event-model</connection>
     <developerConnection>scm:git:https://github.com/CommonJava/indy-event-model</developerConnection>
@@ -57,16 +56,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.commonjava.util</groupId>
-        <artifactId>indy-event-common</artifactId>
-        <version>1.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.commonjava.util</groupId>
-        <artifactId>indy-event-file</artifactId>
-        <version>1.0-SNAPSHOT</version>
-      </dependency>
-      <dependency>
         <groupId>io.quarkus</groupId>
         <artifactId>quarkus-kafka-client</artifactId>
         <version>${quarkus.version}</version>
@@ -74,9 +63,11 @@
     </dependencies>
   </dependencyManagement>
 
-  <modules>
-    <module>common</module>
-    <module>file-event</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-kafka-client</artifactId>
+    </dependency>
+  </dependencies>
   
 </project>

@@ -1,6 +1,6 @@
 package org.commonjava.event.file;
 
-import org.commonjava.event.IndyEvent;
+import org.commonjava.event.common.IndyEvent;
 
 public class FileEvent extends IndyEvent
 {

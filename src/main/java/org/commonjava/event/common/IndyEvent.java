@@ -1,4 +1,6 @@
-package org.commonjava.event;
+package org.commonjava.event.common;
+
+import org.commonjava.event.common.EventMetadata;
 
 import java.util.UUID;
 

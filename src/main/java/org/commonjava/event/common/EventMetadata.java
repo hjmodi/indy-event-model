@@ -1,4 +1,4 @@
-package org.commonjava.event;
+package org.commonjava.event.common;
 
 import java.util.HashMap;
 import java.util.Iterator;
