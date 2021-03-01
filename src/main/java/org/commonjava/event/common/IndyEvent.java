@@ -51,4 +51,10 @@ public class IndyEvent implements Externalizable
         this.eventMetadata = (EventMetadata) in.readObject();
 
     }
+
+    @Override
+    public String toString()
+    {
+        return "IndyEvent{" + "eventID=" + eventID + ", eventMetadata=" + eventMetadata + '}';
+    }
 }

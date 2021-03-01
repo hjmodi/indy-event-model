@@ -1,12 +1,17 @@
 package org.commonjava.event.common;
 
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class EventMetadata implements Iterable<Map.Entry<Object, Object>> {
+public class EventMetadata implements Iterable<Map.Entry<Object, Object>>, Externalizable
+{
     private String packageType;
-    private final Map<Object, Object> metadata = new HashMap();
+    private Map<Object, Object> metadata = new HashMap();
 
     public EventMetadata() {
         this.packageType = "maven";
@@ -56,5 +61,19 @@ public class EventMetadata implements Iterable<Map.Entry<Object, Object>> {
 
     public String toString() {
         return String.format("EventMetadata [metadata=%s]", this.metadata);
+    }
+
+    @Override
+    public void writeExternal( ObjectOutput out ) throws IOException
+    {
+        out.writeObject( packageType );
+        out.writeObject( metadata );
+    }
+
+    @Override
+    public void readExternal( ObjectInput in ) throws IOException, ClassNotFoundException
+    {
+        this.packageType = (String) in.readObject();
+        this.metadata = (Map<Object, Object>) in.readObject();
     }
 }
