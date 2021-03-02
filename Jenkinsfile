@@ -11,7 +11,7 @@ pipeline {
                 expression { env.CHANGE_ID != null } // Pull request
             }
             steps {
-                sh 'mvn -B -V clean verify -Prun-its -Pci'
+                sh 'mvn -B -V clean verify'
             }
         }
         stage('Deploy') {
