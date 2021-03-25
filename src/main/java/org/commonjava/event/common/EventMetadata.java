@@ -15,6 +15,8 @@
  */
 package org.commonjava.event.common;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
@@ -25,8 +27,10 @@ import java.util.Map;
 
 public class EventMetadata implements Iterable<Map.Entry<Object, Object>>, Externalizable
 {
+    @JsonProperty("pacakgeType")
     private String packageType;
-    private Map<Object, Object> metadata = new HashMap();
+    @JsonProperty("metadata")
+    private Map<Object, Object> metadata = new HashMap<>();
 
     public EventMetadata() {
         this.packageType = "maven";
