@@ -16,6 +16,7 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
+import jdk.jfr.EventType;
 import org.commonjava.event.common.EventMetadata;
 
 import java.util.Arrays;
@@ -64,7 +65,7 @@ public abstract class AbstractIndyStoreEvent
         return storeKeys;
     }
 
-    @JsonSetter("keys")
+    @JsonSetter( "keys" )
     public final void setKeys( Collection<EventStoreKey> keys )
     {
         this.storeKeys = keys;
@@ -86,6 +87,15 @@ public abstract class AbstractIndyStoreEvent
     public final Iterator<EventStoreKey> iterator()
     {
         return storeKeys.iterator();
+    }
+
+    protected void checkEventType( StoreEventType expected, StoreEventType actual )
+    {
+        if ( expected != actual )
+        {
+            throw new IllegalArgumentException(
+                    String.format( "Wrong event type! Should be %s but is %s", expected, actual ) );
+        }
     }
 
 }

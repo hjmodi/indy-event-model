@@ -26,6 +26,8 @@ import java.util.Set;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import static org.commonjava.event.store.StoreEventType.Enablement;
+
 public class StoreEnablementEvent
         implements IndyStoreEvent
 {
@@ -42,7 +44,8 @@ public class StoreEnablementEvent
     {
     }
 
-    public StoreEnablementEvent( EventMetadata eventMetadata, boolean preprocessing, boolean disabling, EventStoreKey... storeKeys )
+    public StoreEnablementEvent( EventMetadata eventMetadata, boolean preprocessing, boolean disabling,
+                                 EventStoreKey... storeKeys )
     {
         this.eventMetadata = eventMetadata;
         this.preprocessing = preprocessing;
@@ -66,7 +69,7 @@ public class StoreEnablementEvent
         return eventMetadata;
     }
 
-    @JsonSetter("eventMetadata")
+    @JsonSetter( "eventMetadata" )
     public void setEventMetadata( EventMetadata eventMetadata )
     {
         this.eventMetadata = eventMetadata;
@@ -75,7 +78,17 @@ public class StoreEnablementEvent
     @Override
     public StoreEventType getEventType()
     {
-        return StoreEventType.Enablement;
+        return Enablement;
+    }
+
+    @JsonSetter( "eventType" )
+    public final void setEventType( StoreEventType eventType )
+    {
+        if ( Enablement != eventType )
+        {
+            throw new IllegalArgumentException(
+                    String.format( "Wrong event type! Should be %s but is %s", Enablement, eventType ) );
+        }
     }
 
     @Override
@@ -84,7 +97,7 @@ public class StoreEnablementEvent
         return storeKeys;
     }
 
-    @JsonSetter("keys")
+    @JsonSetter( "keys" )
     public void setKeys( Collection<EventStoreKey> keys )
     {
         this.storeKeys = new HashSet<>( keys );

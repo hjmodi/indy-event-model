@@ -21,6 +21,9 @@ import org.commonjava.event.common.EventMetadata;
 
 import java.util.Set;
 
+import static org.commonjava.event.store.StoreEventType.PreDelete;
+import static org.commonjava.event.store.StoreEventType.PreUpdate;
+
 /**
  * Event signaling the deletion of one or more ArtifactStore instances is ABOUT TO HAPPEN. This event will always contain a mapping of
  * affected stores to their root storage locations, available via {@link ()}.
@@ -38,13 +41,13 @@ public class StorePreDeleteEvent
     @Override
     public StoreEventType getEventType()
     {
-        return StoreEventType.PreDelete;
+        return PreDelete;
     }
 
     @JsonSetter( "eventType" )
-    public final void setEventType()
+    public final void setEventType( StoreEventType eventType )
     {
-
+        checkEventType( PreDelete, eventType );
     }
 
     @Override

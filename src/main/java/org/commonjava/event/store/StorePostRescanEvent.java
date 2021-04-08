@@ -16,9 +16,13 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.commonjava.event.common.EventMetadata;
 
 import java.util.Collection;
+
+import static org.commonjava.event.store.StoreEventType.PostDelete;
+import static org.commonjava.event.store.StoreEventType.PostRescan;
 
 public class StorePostRescanEvent
         extends StoreRescanEvent
@@ -37,6 +41,12 @@ public class StorePostRescanEvent
     @Override
     public StoreEventType getEventType()
     {
-        return StoreEventType.PostRescan;
+        return PostRescan;
+    }
+
+    @JsonSetter( "eventType" )
+    public void setEventType( StoreEventType eventType )
+    {
+        checkEventType( PostRescan, eventType );
     }
 }

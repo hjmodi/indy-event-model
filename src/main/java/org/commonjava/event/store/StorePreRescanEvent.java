@@ -16,9 +16,12 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.commonjava.event.common.EventMetadata;
 
 import java.util.Collection;
+
+import static org.commonjava.event.store.StoreEventType.PreRescan;
 
 public class StorePreRescanEvent
         extends StoreRescanEvent
@@ -37,6 +40,13 @@ public class StorePreRescanEvent
     @Override
     public StoreEventType getEventType()
     {
-        return StoreEventType.PreRescan;
+        return PreRescan;
+    }
+
+    @JsonSetter( "eventType" )
+    @Override
+    public void setEventType( StoreEventType eventType )
+    {
+        checkEventType( PreRescan, eventType );
     }
 }

@@ -16,9 +16,13 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.commonjava.event.common.EventMetadata;
 
+import java.util.List;
 import java.util.Map;
+
+import static org.commonjava.event.store.StoreEventType.PreUpdate;
 
 /**
  * Event signaling that one or more specified ArtifactStore instances' configurations were changed. The ArtifactStoreUpdateType
@@ -32,7 +36,8 @@ public class StorePreUpdateEvent
 
     public StorePreUpdateEvent( final @JsonProperty( "updateType" ) StoreUpdateType type,
                                 final @JsonProperty( "eventMetadata" ) EventMetadata eventMetadata,
-                                final @JsonProperty( "changeMap" ) Map<EventStoreKey, EventStoreKey> changeMap )
+                                final @JsonProperty( "changeMap" )
+                                        Map<EventStoreKey, Map<String, List<Object>>> changeMap )
     {
         super( type, eventMetadata, changeMap );
     }
@@ -40,6 +45,12 @@ public class StorePreUpdateEvent
     @Override
     public StoreEventType getEventType()
     {
-        return StoreEventType.PreUpdate;
+        return PreUpdate;
+    }
+
+    @JsonSetter( "eventType" )
+    public final void setEventType( StoreEventType eventType )
+    {
+        checkEventType( PreUpdate, eventType );
     }
 }

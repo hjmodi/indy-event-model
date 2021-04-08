@@ -21,6 +21,8 @@ import org.commonjava.event.common.EventMetadata;
 
 import java.util.Set;
 
+import static org.commonjava.event.store.StoreEventType.PostDelete;
+
 /**
  * Event signaling the deletion of one or more ArtifactStore instances is COMPLETE. This event will always contain the same type of store, when there is
  * more than one. Instance names are collected and available via getNames(), while the store type is available separately via the getType() method.
@@ -39,13 +41,13 @@ public class StorePostDeleteEvent
     @Override
     public final StoreEventType getEventType()
     {
-        return StoreEventType.PostDelete;
+        return PostDelete;
     }
 
     @JsonSetter( "eventType" )
-    public final void setEventType()
+    public final void setEventType( StoreEventType eventType )
     {
-
+        checkEventType( PostDelete, eventType );
     }
 
     @Override

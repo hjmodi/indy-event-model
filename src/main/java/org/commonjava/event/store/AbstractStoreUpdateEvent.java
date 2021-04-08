@@ -16,11 +16,14 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.commonjava.event.common.EventMetadata;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,35 +38,29 @@ public abstract class AbstractStoreUpdateEvent
     private final StoreUpdateType type;
 
     @JsonProperty("changeMap")
-    private final Map<EventStoreKey, EventStoreKey> changeMap;
+    @JsonInclude
+    private final Map<EventStoreKey, Map<String, List<Object>>> changeMap;
 
     protected AbstractStoreUpdateEvent( final StoreUpdateType type, final EventMetadata metadata,
-                                        final Map<EventStoreKey, EventStoreKey> changeMap )
+                                        final Map<EventStoreKey, Map<String, List<Object>>> changeMap )
     {
         super( metadata, changeMap.keySet() );
-        this.changeMap = cloneOriginals( changeMap );
+        this.changeMap = changeMap;
         this.type = type;
     }
 
-    private Map<EventStoreKey, EventStoreKey> cloneOriginals( Map<EventStoreKey, EventStoreKey> changeMap )
+    public Map<EventStoreKey, Map<String, Object>> getOriginal( EventStoreKey storeKey )
     {
-        Map<EventStoreKey, EventStoreKey> cleaned = new HashMap<>();
-        changeMap.forEach( ( key, value ) -> {
-            if ( key != null && value != null )
-            {
-                cleaned.put( key, value.copyOf() );
-            }
-        } );
-
-        return cleaned;
+        final Map<String, List<Object>> changes = changeMap.get( storeKey );
+        final Map<String, Object> original = new HashMap<>( changes.size() );
+        for ( Map.Entry<String, List<Object>> change : changes.entrySet() )
+        {
+            original.put( change.getKey(), change.getValue().get( 1 ) );
+        }
+        return Collections.singletonMap( storeKey, original );
     }
 
-    public EventStoreKey getOriginal( EventStoreKey store )
-    {
-        return changeMap.get( store );
-    }
-
-    public Map<EventStoreKey, EventStoreKey> getChangeMap()
+    public Map<EventStoreKey, Map<String, List<Object>>> getChangeMap()
     {
         return changeMap;
     }

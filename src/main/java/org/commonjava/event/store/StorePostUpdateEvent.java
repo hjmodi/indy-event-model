@@ -16,9 +16,13 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.commonjava.event.common.EventMetadata;
 
+import java.util.List;
 import java.util.Map;
+
+import static org.commonjava.event.store.StoreEventType.PostUpdate;
 
 /**
  * Event signaling that one or more specified {@link EventStoreKey} instances' configurations were changed. The {@link StoreUpdateType}
@@ -34,7 +38,8 @@ public class StorePostUpdateEvent
 
     public StorePostUpdateEvent( final @JsonProperty( "updateType" ) StoreUpdateType type,
                                  final @JsonProperty( "eventMetadata" ) EventMetadata eventMetadata,
-                                 final @JsonProperty( "changeMap" ) Map<EventStoreKey, EventStoreKey> changeMap )
+                                 final @JsonProperty( "changeMap" )
+                                         Map<EventStoreKey, Map<String, List<Object>>> changeMap )
     {
         super( type, eventMetadata, changeMap );
     }
@@ -42,6 +47,12 @@ public class StorePostUpdateEvent
     @Override
     public StoreEventType getEventType()
     {
-        return StoreEventType.PostUpdate;
+        return PostUpdate;
+    }
+
+    @JsonSetter( "eventType" )
+    public final void setEventType( StoreEventType eventType )
+    {
+        checkEventType( PostUpdate, eventType );
     }
 }

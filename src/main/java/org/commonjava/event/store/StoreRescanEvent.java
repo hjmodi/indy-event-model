@@ -16,9 +16,12 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.commonjava.event.common.EventMetadata;
 
 import java.util.Collection;
+
+import static org.commonjava.event.store.StoreEventType.Rescan;
 
 /**
  * Event to signal that the rescanning of a particular artifact store has started.
@@ -41,6 +44,12 @@ public class StoreRescanEvent
     @Override
     public StoreEventType getEventType()
     {
-        return StoreEventType.Rescan;
+        return Rescan;
+    }
+
+    @JsonSetter( "eventType" )
+    public void setEventType( StoreEventType eventType )
+    {
+        checkEventType( Rescan, eventType );
     }
 }
