@@ -13,10 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.commonjava.event.store.jackson;
+package org.commonjava.event.store;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.commonjava.event.store.EventStoreKey;
+import org.commonjava.event.store.jackson.EventStoreKeyDeserializer;
+import org.commonjava.event.store.jackson.EventStoreKeySerializer;
 
 public class EventStoreKeyModule extends SimpleModule
 {
