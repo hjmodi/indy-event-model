@@ -198,7 +198,7 @@ public class StoreEventTest
                         + "}}";
         StorePreUpdateEvent preCreate = mapper.readValue( json, StorePreUpdateEvent.class );
         assertSame( StoreEventType.PreUpdate, preCreate.getEventType() );
-        assertSame( StoreUpdateType.ADD, preCreate.getType() );
+        assertSame( StoreUpdateType.ADD, preCreate.getUpdateType() );
         assertTrue( preCreate.getKeys().contains( fromString( "maven:group:test1" ) ) );
         assertTrue( preCreate.getChangeMap().containsKey( key1 ) );
 
@@ -208,7 +208,7 @@ public class StoreEventTest
                         + "\"description\" : [ \"new Desc\", \"old Desc\" ]" + "}" + "  }}";
         StorePreUpdateEvent preUpdate = mapper.readValue( json, StorePreUpdateEvent.class );
         assertSame( StoreEventType.PreUpdate, preUpdate.getEventType() );
-        assertSame( StoreUpdateType.UPDATE, preUpdate.getType() );
+        assertSame( StoreUpdateType.UPDATE, preUpdate.getUpdateType() );
         assertTrue( preUpdate.getKeys().contains( fromString( "maven:group:test1" ) ) );
         assertTrue( preUpdate.getChangeMap().containsKey( key1 ) );
         Map<String, List<Object>> changes = preUpdate.getChangeMap().get( key1 );
@@ -222,7 +222,7 @@ public class StoreEventTest
                         + "}}";
         StorePostUpdateEvent postCreate = mapper.readValue( json, StorePostUpdateEvent.class );
         assertSame( StoreEventType.PostUpdate, postCreate.getEventType() );
-        assertSame( StoreUpdateType.ADD, postCreate.getType() );
+        assertSame( StoreUpdateType.ADD, postCreate.getUpdateType() );
         assertTrue( postCreate.getKeys().contains( fromString( "maven:group:test1" ) ) );
         assertTrue( postCreate.getChangeMap().containsKey( key1 ) );
 
@@ -232,7 +232,7 @@ public class StoreEventTest
                         + "\"description\" : [ \"new Desc\", \"old Desc\" ]" + "}" + "  }}";
         StorePostUpdateEvent postUpdate = mapper.readValue( json, StorePostUpdateEvent.class );
         assertSame( StoreEventType.PostUpdate, postUpdate.getEventType() );
-        assertSame( StoreUpdateType.UPDATE, postUpdate.getType() );
+        assertSame( StoreUpdateType.UPDATE, postUpdate.getUpdateType() );
         assertTrue( postUpdate.getKeys().contains( fromString( "maven:group:test1" ) ) );
         assertTrue( postUpdate.getChangeMap().containsKey( key1 ) );
         changes = postUpdate.getChangeMap().get( key1 );

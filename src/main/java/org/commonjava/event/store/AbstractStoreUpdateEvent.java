@@ -35,7 +35,7 @@ public abstract class AbstractStoreUpdateEvent
 {
 
     @JsonProperty("updateType")
-    private final StoreUpdateType type;
+    private final StoreUpdateType updateType;
 
     @JsonProperty("changeMap")
     @JsonInclude
@@ -46,7 +46,7 @@ public abstract class AbstractStoreUpdateEvent
     {
         super( metadata, changeMap.keySet() );
         this.changeMap = changeMap;
-        this.type = type;
+        this.updateType = type;
     }
 
     public Map<EventStoreKey, Map<String, Object>> getOriginal( EventStoreKey storeKey )
@@ -68,9 +68,9 @@ public abstract class AbstractStoreUpdateEvent
     /**
      * Return the type of update that took place.
      */
-    public StoreUpdateType getType()
+    public StoreUpdateType getUpdateType()
     {
-        return type;
+        return updateType;
     }
 
     /**
@@ -85,6 +85,6 @@ public abstract class AbstractStoreUpdateEvent
     @Override
     public String toString()
     {
-        return getClass().getSimpleName() + "{changed=" + getChanges() + ",type=" + type + '}';
+        return getClass().getSimpleName() + "{changed=" + getChanges() + ",type=" + updateType + '}';
     }
 }
