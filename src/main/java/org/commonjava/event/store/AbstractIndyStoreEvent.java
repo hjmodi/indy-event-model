@@ -16,8 +16,8 @@
 package org.commonjava.event.store;
 
 import com.fasterxml.jackson.annotation.JsonSetter;
-import jdk.jfr.EventType;
 import org.commonjava.event.common.EventMetadata;
+import org.commonjava.event.common.IndyEvent;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,10 +30,9 @@ import java.util.stream.Collectors;
  * Base class for events related to changes in Indy ArtifactStore definitions.
  */
 public abstract class AbstractIndyStoreEvent
+        extends IndyEvent
         implements IndyStoreEvent
 {
-
-    private EventMetadata eventMetadata;
 
     protected Collection<EventStoreKey> storeKeys;
 
@@ -43,15 +42,15 @@ public abstract class AbstractIndyStoreEvent
 
     protected AbstractIndyStoreEvent( final EventMetadata eventMetadata, final Collection<EventStoreKey> storeKeys )
     {
-        this.eventMetadata = eventMetadata;
         this.storeKeys = storeKeys == null ? Collections.emptySet() : clearNulls( storeKeys );
+        setEventMetadata( eventMetadata );
     }
 
     protected AbstractIndyStoreEvent( final EventMetadata eventMetadata, final EventStoreKey... keys )
     {
-        this.eventMetadata = eventMetadata;
         this.storeKeys =
                 keys == null || keys.length == 0 ? Collections.emptySet() : clearNulls( Arrays.asList( keys ) );
+        setEventMetadata( eventMetadata );
     }
 
     public static Collection<EventStoreKey> clearNulls( final Collection<EventStoreKey> storeKeys )
@@ -69,18 +68,6 @@ public abstract class AbstractIndyStoreEvent
     public final void setKeys( Collection<EventStoreKey> keys )
     {
         this.storeKeys = keys;
-    }
-
-    @Override
-    public EventMetadata getEventMetadata()
-    {
-        return eventMetadata;
-    }
-
-    @JsonSetter( "eventMetadata" )
-    public final void setEventMetadata( EventMetadata metadata )
-    {
-        this.eventMetadata = metadata;
     }
 
     @Override
