@@ -17,7 +17,9 @@ package org.commonjava.event.promote;
 
 import java.util.Set;
 
-public class PathsPromoteCompleteEvent {
+public class PathsPromoteCompleteEvent
+{
+    private String promotionId;
 
     private String sourceStore;
 
@@ -28,10 +30,20 @@ public class PathsPromoteCompleteEvent {
     public PathsPromoteCompleteEvent() {
     }
 
-    public PathsPromoteCompleteEvent(String sourceStore, String targetStore, Set<String> completedPaths) {
+    public PathsPromoteCompleteEvent(String promotionId, String sourceStore, String targetStore, Set<String> completedPaths)
+    {
+        this.promotionId = promotionId;
         this.sourceStore = sourceStore;
         this.targetStore = targetStore;
         this.completedPaths = completedPaths;
+    }
+
+    public String getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(String promotionId) {
+        this.promotionId = promotionId;
     }
 
     public String getSourceStore() {
@@ -61,7 +73,8 @@ public class PathsPromoteCompleteEvent {
     @Override
     public String toString() {
         return "PathsPromoteCompleteEvent{" +
-                "sourceStore='" + sourceStore + '\'' +
+                "promotionId='" + promotionId + '\'' +
+                ", sourceStore='" + sourceStore + '\'' +
                 ", targetStore='" + targetStore + '\'' +
                 ", completedPaths=" + completedPaths +
                 '}';
