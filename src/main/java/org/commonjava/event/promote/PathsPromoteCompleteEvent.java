@@ -27,15 +27,18 @@ public class PathsPromoteCompleteEvent
 
     private Set<String> completedPaths;
 
+    private boolean purgeSource;
+
     public PathsPromoteCompleteEvent() {
     }
 
-    public PathsPromoteCompleteEvent(String promotionId, String sourceStore, String targetStore, Set<String> completedPaths)
+    public PathsPromoteCompleteEvent(String promotionId, String sourceStore, String targetStore, Set<String> completedPaths, boolean purgeSource)
     {
         this.promotionId = promotionId;
         this.sourceStore = sourceStore;
         this.targetStore = targetStore;
         this.completedPaths = completedPaths;
+        this.purgeSource = purgeSource;
     }
 
     public String getPromotionId() {
@@ -70,6 +73,14 @@ public class PathsPromoteCompleteEvent
         this.completedPaths = completedPaths;
     }
 
+    public boolean isPurgeSource() {
+        return purgeSource;
+    }
+
+    public void setPurgeSource(boolean purgeSource) {
+        this.purgeSource = purgeSource;
+    }
+
     @Override
     public String toString() {
         return "PathsPromoteCompleteEvent{" +
@@ -77,6 +88,7 @@ public class PathsPromoteCompleteEvent
                 ", sourceStore='" + sourceStore + '\'' +
                 ", targetStore='" + targetStore + '\'' +
                 ", completedPaths=" + completedPaths +
+                ", purgeSource=" + purgeSource +
                 '}';
     }
 }
