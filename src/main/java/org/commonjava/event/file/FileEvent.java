@@ -185,4 +185,17 @@ public class FileEvent extends IndyEvent implements Externalizable
 
     }
 
+    @Override
+    public String toString() {
+        return "FileEvent{" +
+                "sessionId='" + sessionId + '\'' +
+                ", nodeId='" + nodeId + '\'' +
+                ", targetLocation='" + targetLocation + '\'' +
+                ", targetPath='" + targetPath + '\'' +
+                ", eventType=" + eventType +
+                ", sourceLocation='" + sourceLocation + '\'' +
+                ", storeKey='" + storeKey + '\'' +
+                ", timestamp=" + timestamp +
+                '}';
+    }
 }
