@@ -36,6 +36,8 @@ import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.commonjava.event.store.StoreEventType.*;
+
 public class StoreEventDeserializer
         implements Deserializer<IndyStoreEvent>
 {
@@ -96,7 +98,7 @@ public class StoreEventDeserializer
 
         try
         {
-            return StoreEventType.valueOf( eventType );
+            return valueOf( eventType );
         }
         catch ( IllegalArgumentException e )
         {

@@ -22,7 +22,6 @@ import org.commonjava.event.common.EventMetadata;
 import java.util.Set;
 
 import static org.commonjava.event.store.StoreEventType.PreDelete;
-import static org.commonjava.event.store.StoreEventType.PreUpdate;
 
 /**
  * Event signaling the deletion of one or more ArtifactStore instances is ABOUT TO HAPPEN. This event will always contain a mapping of
