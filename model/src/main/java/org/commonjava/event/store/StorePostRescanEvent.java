@@ -21,7 +21,6 @@ import org.commonjava.event.common.EventMetadata;
 
 import java.util.Collection;
 
-import static org.commonjava.event.store.StoreEventType.PostDelete;
 import static org.commonjava.event.store.StoreEventType.PostRescan;
 
 public class StorePostRescanEvent
